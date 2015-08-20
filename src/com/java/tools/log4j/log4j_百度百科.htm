@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html>
+
+
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="description" content="Log4j是Apache的一个开放源代码项目，通过使用Log4j，我们可以控制日志信息输送的目的地是控制台、文件、GUI组件，甚至是套接口服务器、NT的事件记录器、UNIX Syslog守护进程等；我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。最令人...">
+<title>log4j_百度百科</title>
+
+<meta name="keywords" content="log4j  百度百科 baike  定义 配置 说明 详解 结合">
+<meta name="image" content="http://baike.bdimg.com/cms/static/baike.png">
+
+<!--[if lte IE 9]>
+<script>
+    (function() {
+      var e = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(","),
+        i = e.length;
+      while (i--) {
+        document.createElement(e[i]);
+      }
+    })();
+  </script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/pkg/wiki-lemma_822376c.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-common/pkg/wiki-common-base_c97a770.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/editor/editor_d41d8cd.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/praise/praise_2120cd2.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/searchHeader/toolButtons/toolButtons_a2c470f.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/searchHeader/toolButtons/userInfo_9ba20c1.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/video/pageMask/pageMask_ff9a193.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/pkg/wiki-lemma-module_561d7fe.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/cardLink/cardLink_40dc1e5.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/mainContent_847fed6.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaRelation/lemmaRelation_f8d61eb.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/zhixin/zhixin_93e49e0.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/searchHeader/searchHeader_e786bfb.css"/><link rel="stylesheet" type="text/css" href="http://baike.bdimg.com/static/wiki-lemma/widget/tools/sideShare/sideShare_afe05e7.css"/></head>
+<body class="wiki-lemma normal">
+
+
+<div class="header-wrapper">
+<ul class="wgt-userbar">
+<li>
+<a href="http://www.baidu.com/">百度首页</a>
+</li>
+</ul>
+<div class="header">
+<div class="layout">
+<div class="wgt-searchbar wgt-searchbar-main cmn-clearfix">
+<div class="logo-container">
+<a class="logo cmn-inline-block" title="到百科首页" href="/">
+<span class="cmn-baike-logo">
+<em class="cmn-icon cmn-icons cmn-icons_logo-bai"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-du"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-baike"></em>
+</span>
+</a>
+</div>
+<div class="search">
+<div class="nav">
+<a href="http://news.baidu.com/" data-href="http://news.baidu.com/ns?tn=news&cl=2&rn=20&ct=1&fr=bks0000&ie=utf-8&word=">新闻</a><a href="http://www.baidu.com/" data-href="http://www.baidu.com/s?ie=utf-8&fr=bks0000&wd=">网页</a><a href="http://tieba.baidu.com/" data-href="http://tieba.baidu.com/f?ie=utf-8&fr=bks0000&kw=">贴吧</a><a href="http://zhidao.baidu.com/" data-href="http://zhidao.baidu.com/search?pn=0&&rn=10&lm=0&fr=bks0000&word=">知道</a><a href="http://music.baidu.com/" data-href="http://music.baidu.com/search?f=ms&ct=134217728&ie=utf-8&rn=&lm=-1&pn=30fr=bks0000&key=">音乐</a><a href="http://image.baidu.com/" data-href="http://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&word=">图片</a><a href="http://v.baidu.com/" data-href="http://v.baidu.com/v?ct=301989888&rn=20&pn=0&db=0&s=22&ie=utf-8&fr=bks0000&word=">视频</a><a href="http://map.baidu.com/" data-href="http://map.baidu.com/m?ie=utf-8&fr=bks0000&word=">地图</a><a class="baike">百科</a><a href="http://wenku.baidu.com/" data-href="http://wenku.baidu.com/search?lm=0&od=0&ie=utf-8&fr=bks0000&word=">文库</a>
+</div>
+<div class="form">
+<form id="searchForm" action="/search/word" method="GET" target="_self">
+<input id="query" name="word" type="text" autocomplete="off" autocorrect="off" value="log4j" /><button id="search" type="button">进入词条</button><button id="searchLemma" type="button">搜索词条</button><a class="help" href="/help" target="_blank">帮助</a>
+</form>
+<form id="searchLemmaForm" action="/search" method="GET" target="_self">
+<input id="searchLemmaQuery" name="word" type="hidden" />
+<input name="pn" type="hidden" value="0" />
+<input name="rn" type="hidden" value="0" />
+<input name="enc" type="hidden" value="utf8" />
+</form>
+<ul id="suggestion" class="suggestion">
+<div></div>
+<li class="extra">
+<span id="close">关闭</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="navbar-wrapper">
+<div class="wgt-navbar">
+<div class="navbar-bg">
+<div class="navbar-bg-top">
+<div class="navbar-content layout">
+<div class="navbar-content-box">
+<dl class="index ">
+<dt><a href="/">首页</a></dt>
+</dl>
+<dl class="cat ">
+<dt><a>分类</a></dt>
+<dd>
+<div><a href="/ziran" target="_blank">自然</a></div>
+<div><a href="/wenhua" target="_blank">文化</a></div>
+<div><a href="/dili" target="_blank">地理</a></div>
+<div><a href="/lishi" target="_blank">历史</a></div>
+<div><a href="/shenghuo" target="_blank">生活</a></div>
+<div><a href="/shehui" target="_blank">社会</a></div>
+<div><a href="/yishu" target="_blank">艺术</a></div>
+<div><a href="/renwu" target="_blank">人物</a></div>
+<div><a href="/jingji" target="_blank">经济</a></div>
+<div><a href="/keji" target="_blank">科技</a></div>
+<div><a href="/tiyu" target="_blank">体育</a></div>
+</dd>
+</dl>
+<dl class="special ">
+<dt><a>特色百科</a></dt>
+<dd>
+<div><a href="/calendar/" target="_blank">历史上的今天</a></div>
+<div><a href="/museum/" target="_blank">数字博物馆</a></div>
+<div><a href="/city/" target="_blank">城市百科</a></div>
+<div><a href="/wikitag/taglist?tagId=60829&fr=daohang" target="_blank">高校百科</a></div>
+<div><a href="/art" target="_blank">艺术百科</a></div>
+<div><a href="/science" target="_blank">科学百科</a></div>
+</dd>
+</dl>
+<dl class="user" >
+<dt><a>用户</a></dt>
+<dd>
+<div><a href="/kedou/" target="_blank">蝌蚪团</a></div>
+<div><a href="/event/ranmeng/" target="_blank">燃梦计划</a></div>
+<div><a href="/task/" target="_blank">百科任务</a></div>
+<div><a href="/mall/" target="_blank">百科商城</a></div>
+</dd>
+</dl>
+<dl class="cooperation" >
+<dt><a>权威合作</a></dt>
+<dd>
+<div><a href="/operation/cooperation#joint" target="_blank">合作模式</a></div>
+<div><a href="/operation/cooperation#issue" target="_blank">常见问题</a></div>
+<div><a href="/operation/cooperation#connection" target="_blank">联系方式</a></div>
+</dd>
+</dl>
+<dl class="mobile" >
+<dt><a>手机百科</a></dt>
+<dd>
+<div><a href="/m#download" target="_blank">客户端</a></div>
+<div><a href="/m#wap" target="_blank">网页版</a></div>
+</dd>
+</dl>
+<div class="usercenter">
+<div><a href="/usercenter" target="_blank"><em class="cmn-icon cmn-icons cmn-icons_navbar-usercenter"></em>个人中心</a></div>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="body-wrapper">
+<div class="before-content">
+</div>
+<div class="content-wrapper">
+<div class="content">
+<div class="main-content">
+<div class="top-tool">
+<a class="add-sub-icon" href="javascript:void(0);" title="添加义项" nslog-type="50000101"></a>
+<a href="/divideload/log4j" title="拆分词条" target="_blank" class="split-icon" style="display:none;" nslog-type="50000104"></a>
+<div class="top-collect">
+<span class="collect-text" nslog-type="50000102">收藏</span>
+<div class="collect-tip">查看<a href="/uc/favolemma" target="_blank">我的收藏</a></div>
+</div>
+<a href="javascript:void(0);" class="top-vote" nslog-type="50000103">
+<span class="vote-count">0</span>
+<span class="vote-tip">有用+1</span>
+<span class="voted-tip">已投票</span>
+</a>
+<div class="bdsharebuttonbox top-share" data-tag="top-share">
+<a class="bds_more top-share-icon" data-cmd="more" nslog-type="9067">
+<span class="bds_count share-count" id="j-topShareCount" data-cmd="count">0</span>
+</a>
+</div>
+</div><dl class="lemmaWgt-lemmaTitle lemmaWgt-lemmaTitle-">
+<dd class="lemmaWgt-lemmaTitle-title">
+<h1>log4j</h1>
+<a  href="javascript:;" class="edit-lemma cmn-btn-hover-blue cmn-btn-28 j-edit-link"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</dd>
+</dl><div class="lemma-summary">
+<div class="para">Log4j是<a target=_blank href="/subview/28283/5418753.htm">Apache</a>的一个开放源代码项目，通过使用Log4j，我们可以控制日志信息输送的目的地是<a target=_blank href="/view/135167.htm">控制台</a>、文件、<a target=_blank href="/view/25309.htm">GUI</a>组件，甚至是套接口服务器、<a target=_blank href="/subview/378/5113303.htm">NT</a>的事件记录器、<a target=_blank href="/view/8095.htm">UNIX</a> <a target=_blank href="/view/1614723.htm">Syslog</a><a target=_blank href="/view/53123.htm">守护进程</a>等；我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。最令人感兴趣的就是，这些可以通过一个<a target=_blank href="/view/2117618.htm">配置文件</a>来灵活地进行配置，而不需要修改应用的代码。</div>
+</div>
+<div class="basic-info">
+<dl class="basicInfo-block basicInfo-left">
+<dt class="basicInfo-item name">中文名</dt>
+<dd class="basicInfo-item value">
+java日志
+</dd>
+<dt class="basicInfo-item name">外文名</dt>
+<dd class="basicInfo-item value">
+log4j
+</dd>
+</dl><dl class="basicInfo-block basicInfo-right">
+<dt class="basicInfo-item name">别&nbsp;&nbsp;&nbsp;&nbsp;名</dt>
+<dd class="basicInfo-item value">
+log4j--log for&nbsp;<a target=_blank href="/subview/29/12654100.htm">java</a>
+</dd>
+<dt class="basicInfo-item name">版&nbsp;&nbsp;&nbsp;&nbsp;本</dt>
+<dd class="basicInfo-item value">
+&nbsp;Apache License V2.0
+</dd>
+</dl><div style="clear:both;"></div>
+</div>
+<div class="lemma-catalog">
+<h2 class="block-title">目录</h2>
+<ol class="catalog-list column-3" style="height:98px;">
+<li class="title level1 column-0" style="top:15px;height:28px;">
+<span class="index">1</span>
+<a href="#1" class="text">定义</a>
+</li>
+<li class="title level1 column-0" style="top:43px;height:28px;">
+<span class="index">2</span>
+<a href="#2" class="text">配置</a>
+</li>
+<li class="title level2 column-0" style="top:71px;height:21px;">
+<span class="index">▪</span>
+<a href="#2_1" class="text">第一步</a>
+</li>
+<li class="title level2 column-0" style="top:92px;height:21px;">
+<span class="index">▪</span>
+<a href="#2_2" class="text">第二步</a>
+</li>
+<li class="title level2 column-1" style="top:15px;height:21px;">
+<span class="index">▪</span>
+<a href="#2_3" class="text">第三步</a>
+</li>
+<li class="title level2 column-1" style="top:36px;height:21px;">
+<span class="index">▪</span>
+<a href="#2_4" class="text">第四步</a>
+</li>
+<li class="title level1 column-1" style="top:57px;height:28px;">
+<span class="index">3</span>
+<a href="#3" class="text">说明</a>
+</li>
+<li class="title level1 column-1" style="top:85px;height:28px;">
+<span class="index">4</span>
+<a href="#4" class="text">详解</a>
+</li>
+<li class="title level2 column-2" style="top:15px;height:21px;">
+<span class="index">▪</span>
+<a href="#4_1" class="text">定义配置文件</a>
+</li>
+<li class="title level2 column-2" style="top:36px;height:21px;">
+<span class="index">▪</span>
+<a href="#4_2" class="text">格式化日志</a>
+</li>
+<li class="title level2 column-2" style="top:57px;height:21px;">
+<span class="index">▪</span>
+<a href="#4_3" class="text">运用在代码中</a>
+</li>
+<li class="title level1 column-2" style="top:78px;height:28px;">
+<span class="index">5</span>
+<a href="#5" class="text">结合</a>
+</li>
+
+</ol>
+</div>
+<div class="anchor-list">
+<a name="1" class="lemma-anchor para-title" ></a>
+<a name="sub25347_1" class="lemma-anchor " ></a>
+<a name="定义" class="lemma-anchor " ></a>
+</div><h2 class="para-title level-2">
+<span class="title-text">定义</span>
+<a class="edit-icon j-edit-link" data-edit-dl="1" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</h2><div class="para">log4j--log for <a target=_blank href="/subview/29/12654100.htm">java</a>(java的日志)</div>
+<div class="para">在强调可重用组件开发的今天，除了自己从头到尾开发一个可重用的日志操作类外，<a target=_blank href="/view/28283.htm">Apache</a>为我们提供了一个强有力的日志操作包-Log4j。</div>
+<div class="para">此外，通过Log4j其他语言接口，您可以在C、<a target=_blank href="/view/824.htm">C++</a>、<a target=_blank href="/view/4294.htm">.Net</a>、<a target=_blank href="/view/470171.htm">PL/SQL</a>程序中使用Log4j，其语法和用法与在Java程序中一样，使得多语言<a target=_blank href="/view/991489.htm">分布式系统</a>得到一个统一一致的日志组件模块。而且，通过使用各种第三方扩展，您可以很方便地将Log4j集成到<a target=_blank href="/view/1507.htm">J2EE</a>、<a target=_blank href="/view/140520.htm">JINI</a>甚至是<a target=_blank href="/view/2899.htm">SNMP</a>应用中。</div>
+<div class="para">说明：下面分为三部分，</div>
+<div class="para">第一部分讲解如何配置log4j；</div>
+<div class="para">第二部分为对log4j.properties<a target=_blank href="/view/2117618.htm">配置文件</a>中的各个属性的讲解；</div>
+<div class="para">第三部分为对log4j的详细讲解。</div>
+<div class="para">如果只想配置上log4j，那么只需要看前两个部分就可以，如果想对log4j深入了解，则还需看第三部分。</div>
+<div class="para">使用的<a target=_blank href="/view/2921950.htm">license</a>： Apache License V2.0</div><div class="anchor-list">
+<a name="2" class="lemma-anchor para-title" ></a>
+<a name="sub25347_2" class="lemma-anchor " ></a>
+<a name="配置" class="lemma-anchor " ></a>
+</div><h2 class="para-title level-2">
+<span class="title-text">配置</span>
+<a class="edit-icon j-edit-link" data-edit-dl="2" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</h2><div class="anchor-list">
+<a name="2_1" class="lemma-anchor para-title" ></a>
+<a name="sub25347_2_1" class="lemma-anchor " ></a>
+<a name="第一步" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">第一步</span>
+</h3><div class="para">加入log4j-1.2.8.jar(可以选择log4j的更高版本)到lib下。</div><div class="anchor-list">
+<a name="2_2" class="lemma-anchor para-title" ></a>
+<a name="sub25347_2_2" class="lemma-anchor " ></a>
+<a name="第二步" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">第二步</span>
+</h3><div class="para">在CLASSPATH下建立log4j.properties。内容如下(数字为行号)：</div>
+<div class="para"><b>1</b> log4j.rootCategory=INFO, stdout , R</div>
+<div class="para"><b>2</b></div>
+<div class="para"><b>3</b> log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div>
+<div class="para"><b>4</b> log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</div>
+<div class="para"><b>5</b> log4j.appender.stdout.layout.ConversionPattern=[QC] %p [%t] %C.%M(%L) | %m%n</div>
+<div class="para"><b>6</b></div>
+<div class="para"><b>7</b> log4j.appender.R=org.apache.log4j.DailyRollingFileAppender</div>
+<div class="para"><b>8</b> log4j.appender.R.File=D:\\Tomcat 5.5\\logs\\qc.log</div>
+<div class="para"><b>9</b> log4j.appender.R.layout=org.apache.log4j.PatternLayout</div>
+<div class="para"><b>10</b> log4j.appender.R.layout.ConversionPattern=%d-[TS] %p %t %c - %m%n</div>
+<div class="para"><b>11</b></div>
+<div class="para"><b>12</b> log4j.logger.com.neusoft=DEBUG</div>
+<div class="para"><b>13</b> log4j.logger.com.opensymphony.oscache=ERROR</div>
+<div class="para"><b>14</b> log4j.logger.net.sf.navigator=ERROR</div>
+<div class="para"><b>15</b> log4j.logger.org.apache.commons=ERROR</div>
+<div class="para"><b>16</b> log4j.logger.org.apache.struts=WARN</div>
+<div class="para"><b>17</b> log4j.logger.org.displaytag=ERROR</div>
+<div class="para"><b>18</b> log4j.logger.org.springframework=DEBUG</div>
+<div class="para"><b>19</b> log4j.logger.com.ibatis.db=WARN</div>
+<div class="para"><b>20</b> log4j.logger.org.apache.velocity=FATAL</div>
+<div class="para"><b>21</b></div>
+<div class="para"><b>22</b> log4j.logger.com.canoo.webtest=WARN</div>
+<div class="para"><b>23</b></div>
+<div class="para"><b></b><b>24</b> log4j.logger.org.hibernate.ps.PreparedStatementCache=WARN</div>
+<div class="para"><b>25</b> log4j.logger.org.hibernate=DEBUG</div>
+<div class="para"><b>26</b> log4j.logger.org.logicalcobwebs=WARN</div><div class="anchor-list">
+<a name="2_3" class="lemma-anchor para-title" ></a>
+<a name="sub25347_2_3" class="lemma-anchor " ></a>
+<a name="第三步" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">第三步</span>
+</h3><div class="para">相应的修改其中属性，修改之前就必须知道这些都是干什么的，在第二部分讲解。</div><div class="anchor-list">
+<a name="2_4" class="lemma-anchor para-title" ></a>
+<a name="sub25347_2_4" class="lemma-anchor " ></a>
+<a name="第四步" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">第四步</span>
+</h3><div class="para">在要输出日志的类中加入相关语句：</div>
+<div class="para">定义属性：static Logger logger = Logger.getLogger(LogDemo.class); //LogDemo为相关的类</div>
+<div class="para">在相应的方法中：</div>
+<div class="para">if (logger.isDebugEnabled()){</div>
+<div class="para">logger.debug(“System …..”);</div>
+<div class="para">}</div><div class="anchor-list">
+<a name="3" class="lemma-anchor para-title" ></a>
+<a name="sub25347_3" class="lemma-anchor " ></a>
+<a name="说明" class="lemma-anchor " ></a>
+</div><h2 class="para-title level-2">
+<span class="title-text">说明</span>
+<a class="edit-icon j-edit-link" data-edit-dl="3" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</h2><div class="para"><b>1 </b>log4j.rootCategory=INFO, stdout , R</div>
+<div class="para">此句为将等级为INFO的日志信息输出到stdout和R这两个目的地，stdout和R的定义在下面的代码，可以任意起名。等级可分为OFF、FATAL、ERROR、WARN、INFO、<a target=_blank href="/view/45108.htm">DEBUG</a>、ALL，如果配置OFF则不打出任何信息，如果配置为<a target=_blank href="/view/105555.htm">INFO</a>这样只显示INFO, WARN, ERROR的<a target=_blank href="/view/426996.htm">log</a>信息，而DEBUG信息不会被显示，具体讲解可参照第三部分定义配置文件中的logger。</div>
+<div class="para"><b>3 </b>log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div>
+<div class="para">此句为定义名为<a target=_blank href="/view/1322475.htm">stdout</a>的输出端是哪种类型，可以是</div>
+<div class="para">org.apache.log4j.ConsoleAppender（控制台），</div>
+<div class="para">org.apache.log4j.FileAppender（文件），</div>
+<div class="para">org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），</div>
+<div class="para">org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）</div>
+<div class="para">org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</div>
+<div class="para">具体讲解可参照第三部分定义配置文件中的Appender。</div>
+<div class="para"><b>4 </b>log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</div>
+<div class="para">此句为定义名为stdout的输出端的layout是哪种类型，可以是</div>
+<div class="para">org.apache.log4j.HTMLLayout（以<a target=_blank href="/view/692.htm">HTML</a>表格形式布局），</div>
+<div class="para">org.apache.log4j.PatternLayout（可以灵活地指定布局模式），</div>
+<div class="para">org.apache.log4j.SimpleLayout（包含日志信息的级别和信息<a target=_blank href="/view/56072.htm">字符串</a>），</div>
+<div class="para">org.apache.log4j.TTCCLayout（包含日志产生的时间、<a target=_blank href="/view/1053.htm">线程</a>、类别等等信息）</div>
+<div class="para">具体讲解可参照第三部分定义配置文件中的Layout。</div>
+<div class="para"><b>5 </b>log4j.appender.stdout.layout.ConversionPattern= [QC] %p [%t] %C.%M(%L) | %m%n</div>
+<div class="para">如果使用pattern布局就要指定的打印信息的具体格式ConversionPattern，打印参数如下：</div>
+<div class="para">%m 输出代码中指定的消息；</div>
+<div class="para">%M 输出打印该条日志的方法名；</div>
+<div class="para">%p 输出优先级，即DEBUG，<a target=_blank href="/view/105555.htm">INFO</a>，WARN，ERROR，FATAL；</div>
+<div class="para">%r 输出自应用启动到输出该log信息耗费的毫秒数；</div>
+<div class="para">%c 输出所属的类目，通常就是所在类的全名；</div>
+<div class="para">%t 输出产生该日志事件的线程名；</div>
+<div class="para">%n 输出一个回车换行符，Windows平台为&quot;rn”，Unix平台为&quot;n”；</div>
+<div class="para">%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyyy-MM-dd HH:mm:ss,SSS}，输出类似：2002-10-18 22:10:28,921；</div>
+<div class="para">%l 输出日志事件的发生位置，及在代码中的行数；</div>
+<div class="para">[QC]是log信息的开头，可以为任意字符，一般为项目简称。</div>
+<div class="para">输出的信息</div>
+<div class="para">[TS] DEBUG [main] AbstractBeanFactory.getBean(189) | Returning cached instance of singleton bean &#39;MyAutoProxy&#39;</div>
+<div class="para">具体讲解可参照第三部分定义配置文件中的格式化日志信息。</div>
+<div class="para"><b>7 </b>log4j.appender.R=org.apache.log4j.DailyRollingFileAppender</div>
+<div class="para">此句与第3行一样。定义名为R的输出端的类型为每天产生一个日志文件。</div>
+<div class="para"><b>8 </b>log4j.appender.R.File=D:\\Tomcat 5.5\\logs\\qc.log</div>
+<div class="para">此句为定义名为R的输出端的文件名为D:\\Tomcat 5.5\\logs\\qc.log可以自行修改。</div>
+<div class="para"><b>9 </b>log4j.appender.R.layout=org.apache.log4j.PatternLayout</div>
+<div class="para">与第4行相同。</div>
+<div class="para"><b>10</b>log4j.appender.R.layout.ConversionPattern=%d-[TS] %p %t %c - %m%n</div>
+<div class="para">与第5行相同。</div>
+<div class="para"><b>12 </b>log4j.logger.com. neusoft =DEBUG</div>
+<div class="para">指定com.neusoft包下的所有类的等级为DEBUG。</div>
+<div class="para">可以把com.neusoft改为自己项目所用的包名。</div>
+<div class="para"><b>13 </b>log4j.logger.com.opensymphony.oscache=ERROR</div>
+<div class="para"><b>14 </b>log4j.logger.net.sf.navigator=ERROR</div>
+<div class="para">这两句是把这两个包下出现的错误的等级设为ERROR，如果项目中没有配置EHCache，则不需要这两句。</div>
+<div class="para"><b>15 </b>log4j.logger.org.apache.commons=ERROR</div>
+<div class="para"><b>16 </b>log4j.logger.org.apache.struts=WARN</div>
+<div class="para">这两句是struts的包。</div>
+<div class="para"><b>17 </b>log4j.logger.org.displaytag=ERROR</div>
+<div class="para">这句是displaytag的包。（QC问题列表页面所用）</div>
+<div class="para"><b>18 </b>log4j.logger.org.springframework=DEBUG</div>
+<div class="para">此句为Spring的包。</div>
+<div class="para"><b></b><b>24 </b>log4j.logger.org.hibernate.ps.PreparedStatementCache=WARN</div>
+<div class="para"><b>25 </b>log4j.logger.org.hibernate=DEBUG</div>
+<div class="para">此两句是hibernate的包。</div>
+<div class="para">以上这些包的设置可根据项目的实际情况而自行定制。</div><div class="anchor-list">
+<a name="4" class="lemma-anchor para-title" ></a>
+<a name="sub25347_4" class="lemma-anchor " ></a>
+<a name="详解" class="lemma-anchor " ></a>
+</div><h2 class="para-title level-2">
+<span class="title-text">详解</span>
+<a class="edit-icon j-edit-link" data-edit-dl="4" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</h2><div class="anchor-list">
+<a name="4_1" class="lemma-anchor para-title" ></a>
+<a name="sub25347_4_1" class="lemma-anchor " ></a>
+<a name="定义配置文件" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">定义配置文件</span>
+</h3><div class="para">Log4j支持两种配置文件格式，一种是<a target=_blank href="/view/63.htm">XML</a>（<a target=_blank href="/view/5286041.htm">标准通用标记语言</a>下的一个应用）格式的文件，一种是Java特性文件log4j.properties（键=值）。下面将介绍使用log4j.properties文件作为配置文件的方法:</div>
+<div class="para"><b>①、配置根Logger</b></div>
+<div class="para">Logger 负责处理日志记录的大部分操作。</div>
+<div class="para">其语法为：</div>
+<div class="para">log4j.rootLogger = [ level ] , appenderName, appenderName, …</div>
+<div class="para">其中，level 是日志记录的优先级，分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者自定义的级别。Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。通过在这里定义的级别，您可以控制到应用程序中相应级别的日志信息的开关。比如在这里定义了INFO级别，只有等于及高于这个级别的才进行处理，则应用程序中所有DEBUG级别的日志信息将不被打印出来。ALL:打印所有的日志，OFF：关闭所有的日志输出。 appenderName就是指定日志信息输出到哪个地方。可同时指定多个输出目的地。</div>
+<div class="para"><b>②、配置日志信息输出目的地 Appender</b></div>
+<div class="para">Appender 负责控制日志记录操作的输出。</div>
+<div class="para">其语法为：</div>
+<div class="para">log4j.appender.appenderName = fully.qualified.name.of.appender.class</div>
+<div class="para">log4j.appender.appenderName.option1 = value1</div>
+<div class="para">…</div>
+<div class="para">log4j.appender.appenderName.optionN = valueN</div>
+<div class="para">这里的appenderName为在①里定义的，可任意起名。</div>
+<div class="para">其中，Log4j提供的appender有以下几种：</div>
+<div class="para">org.apache.log4j.ConsoleAppender（控制台），</div>
+<div class="para">org.apache.log4j.FileAppender（文件），</div>
+<div class="para">org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件），</div>
+<div class="para">org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件），可通过log4j.appender.R.MaxFileSize=100KB设置文件大小，还可通过log4j.appender.R.MaxBackupIndex=1设置为保存一个<a target=_blank href="/view/399279.htm">备份文件</a>。</div>
+<div class="para">org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</div>
+<div class="para">例如：log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div>
+<div class="para">定义一个名为stdout的输出目的地，ConsoleAppender为控制台。</div>
+<div class="para"><b>③、配置日志信息的格式（布局）Layout</b></div>
+<div class="para">Layout 负责格式化Appender的输出。</div>
+<div class="para">其语法为：</div>
+<div class="para">log4j.appender.appenderName.layout = fully.qualified.name.of.layout.class</div>
+<div class="para">log4j.appender.appenderName.layout.option1 = value1</div>
+<div class="para">…</div>
+<div class="para">log4j.appender.appenderName.layout.optionN = valueN</div>
+<div class="para">其中，Log4j提供的layout有以下几种：</div>
+<div class="para">org.apache.log4j.HTMLLayout（以HTML表格形式布局），</div>
+<div class="para">org.apache.log4j.PatternLayout（可以灵活地指定布局模式），</div>
+<div class="para">org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串），</div>
+<div class="para">org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）</div><div class="anchor-list">
+<a name="4_2" class="lemma-anchor para-title" ></a>
+<a name="sub25347_4_2" class="lemma-anchor " ></a>
+<a name="格式化日志" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">格式化日志</span>
+</h3><div class="para">Log4J采用类似C语言中的printf函数的打印格式格式化日志信息，打印参数如下：</div>
+<div class="para">%m 输出代码中指定的消息；</div>
+<div class="para">%M 输出打印该条日志的方法名；</div>
+<div class="para">%p 输出优先级，即DEBUG，INFO，WARN，ERROR，FATAL；</div>
+<div class="para">%r 输出自应用启动到输出该log信息耗费的毫秒数；</div>
+<div class="para">%c 输出所属的类目，通常就是所在类的全名；</div>
+<div class="para">%t 输出产生该日志事件的线程名；</div>
+<div class="para">%n 输出一个回车换行符，Windows平台为&quot;rn”，Unix平台为&quot;n”；</div>
+<div class="para">%d 输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，比如：%d{yyyy-MM-dd HH:mm:ss,SSS}，输出类似：2002-10-18 22:10:28,921；</div>
+<div class="para">%l 输出日志事件的发生位置，及在代码中的行数。</div><div class="anchor-list">
+<a name="4_3" class="lemma-anchor para-title" ></a>
+<a name="sub25347_4_3" class="lemma-anchor " ></a>
+<a name="运用在代码中" class="lemma-anchor " ></a>
+</div><h3 class="para-title level-3">
+<span class="title-text">运用在代码中</span>
+</h3><div class="para">我们在需要输出日志信息的类中做如下的三个工作：</div>
+<div class="para">1、导入所有需的commons-logging类：</div>
+<div class="para">import org.apache.commons.logging.Log;</div>
+<div class="para">import org.apache.commons.logging.LogFactory;</div>
+<div class="para">2、在自己的类中定义一个org.apache.commons.logging.Log类的私有静态类成员：</div>
+<div class="para">private final Log log = LogFactory.getLog(getClass());</div>
+<div class="para">LogFactory.getLog()方法的参数使用的是当前类的class。</div>
+<div class="para">3、使用org.apache.commons.logging.Log类的成员方法输出日志信息：</div>
+<div class="para">if (log.isDebugEnabled()){</div>
+<div class="para">log.debug(&quot;111&quot;);</div>
+<div class="para">}</div>
+<div class="para">if (log.isInfoEnabled()){</div>
+<div class="para">log.info(&quot;222&quot;);</div>
+<div class="para">}</div>
+<div class="para">if (log.isWarnEnabled()){</div>
+<div class="para">log.warn(&quot;333&quot;);</div>
+<div class="para">}</div>
+<div class="para">if (log.isErrorEnabled()){</div>
+<div class="para">log.error(&quot;444&quot;);</div>
+<div class="para">}</div>
+<div class="para">if (log.isFatalEnabled()){</div>
+<div class="para">log.fatal(&quot;555&quot;);</div>
+<div class="para">}</div>
+<div class="para">2.3　如何应用记录器的层次</div>
+<div class="para">2.3.1　如何定义及获取不同层次的记录器</div>
+<div class="para">任何一个记录器的使用都有两个步骤：</div>
+<div class="para">1) 在配置文件中定义相应的记录器。</div>
+<div class="para">在配置文件中定义记录器的格式有两种</div>
+<div class="para">? 定义根记录器的格式为</div>
+<div class="para">log4j.rootLogger = [ level ], appendName1, appendName2, …appendNameN</div>
+<div class="para">? 定义一个非根记录器的格式为</div>
+<div class="para">log4j.logger.loggerName1 = [ level ], appendName1,…appendNameN</div>
+<div class="para">……</div>
+<div class="para">log4j.logger.loggerNameM = [ level ], appendName1, …appendNameN</div>
+<div class="para">我们可以定义任意个非根记录器。</div>
+<div class="para">2) 在代码中调用Logger类的取得记录器方法取得相应的记录器对象。</div>
+<div class="para">要取得根记录器对象可通过Logger.getRootLogger()函数，要取得非根记录器可通过Logger.getLogger()函数。</div>
+<div class="para">理论知道就讲到这里，纸上得来终觉浅，下面，我们来小小演练一下。</div>
+<div class="para">例4-a：</div>
+<div class="para">package TestLog4j;</div>
+<div class="para">import org.apache.log4j.Logger;</div>
+<div class="para">import org.apache.log4j.PropertyConfigurator;</div>
+<div class="para">import org.apache.log4j.Priority;</div>
+<div class="para">import TestLog4j.TestLog4j2.TestLog4j2;</div>
+<div class="para">public class TestLog4j</div>
+<div class="para">{</div>
+<div class="para">static Logger logger = Logger.getLogger(TestLog4j.class.getName());　//（2）</div>
+<div class="para">public TestLog4j(){}</div>
+<div class="para">public static void main(String[] args)</div>
+<div class="para">{</div>
+<div class="para">//同时输出到控制台和一个文件的实例并实现了Logger的继承</div>
+<div class="para">PropertyConfigurator.configure(&quot;F:\\nepalon\\log4j2.properties&quot;);</div>
+<div class="para">logger.debug(&quot;Start of the main() in TestLog4j&quot;);</div>
+<div class="para">logger.info(&quot;Just testing a log message with priority set to INFO&quot;);</div>
+<div class="para">logger.warn(&quot;Just testing a log message with priority set to WARN&quot;);</div>
+<div class="para">logger.error(&quot;Just testing a log message with priority set to ERROR&quot;);</div>
+<div class="para">logger.fatal(&quot;Just testing a log message with priority set to FATAL&quot;);</div>
+<div class="para">logger.log(Priority.WARN, &quot;Testing a log message use a alternate form&quot;);</div>
+<div class="para">logger.debug(TestLog4j.class.getName());</div>
+<div class="para">TestLog4j2 testLog4j2 = new TestLog4j2();　//（1）</div>
+<div class="para">testLog4j2.testLog();</div>
+<div class="para">}</div>
+<div class="para">}</div>
+<div class="para">在类TestLog4j中我们调用了另一个类TestLog4j2，下面看一下类TestLog4j2的代码。</div>
+<div class="para">例4-b：</div>
+<div class="para">package TestLog4j.TestLog4j2;</div>
+<div class="para">import org.apache.log4j.Logger;</div>
+<div class="para">import org.apache.log4j.PropertyConfigurator;</div>
+<div class="para">import org.apache.log4j.Priority;</div>
+<div class="para">public class TestLog4j2</div>
+<div class="para">{</div>
+<div class="para">static Logger logger = Logger.getLogger(TestLog4j2.class.getName());　//（1）</div>
+<div class="para">public TestLog4j2(){}</div>
+<div class="para">public void testLog()</div>
+<div class="para">{</div>
+<div class="para">//同时输出到控制台和一个文件的实例</div>
+<div class="para">PropertyConfigurator.configure(&quot;F:\\nepalon\\log4j2.properties&quot;);</div>
+<div class="para">logger.debug(&quot;2Start of the main()&quot;);</div>
+<div class="para">logger.info(&quot;2Just testing a log message with priority set to INFO&quot;);</div>
+<div class="para">logger.warn(&quot;2Just testing a log message with priority set to WARN&quot;);</div>
+<div class="para">logger.error(&quot;2Just testing a log message with priority set to ERROR&quot;);</div>
+<div class="para">logger.fatal(&quot;2Just testing a log message with priority set to FATAL&quot;);</div>
+<div class="para">logger.log(Priority.DEBUG, &quot;Testing a log message use a alternate form&quot;);</div>
+<div class="para">logger.debug(&quot;2End of the main()&quot;);</div>
+<div class="para">}</div>
+<div class="para">}</div>
+<div class="para">最后我们来看一下配置文件。</div>
+<div class="para">例4-c：</div>
+<div class="para">log4j2.properties文件内容</div>
+<div class="para">#1区</div>
+<div class="para">#### Use two appenders, one to log to console, another to log to a file</div>
+<div class="para">log4j.rootLogger = debug, stdout,R</div>
+<div class="para">#2区</div>
+<div class="para">#Print only messages of priority WARN or higher for your category</div>
+<div class="para">log4j.logger.TestLog4j= , R</div>
+<div class="para">log4j.logger.TestLog4j.TestLog4j2=WARN</div>
+<div class="para">#3区</div>
+<div class="para">#### First appender writes to console</div>
+<div class="para">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</div>
+<div class="para">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</div>
+<div class="para"># Pattern to output the caller&#39;s file name and line number.</div>
+<div class="para">log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n</div>
+<div class="para">#4区</div>
+<div class="para">#### Second appender writes to a file</div>
+<div class="para">log4j.appender.R=org.apache.log4j.RollingFileAppender</div>
+<div class="para">log4j.appender.R.File=F:\\nepalon\\classes\\TestLog4j\\example.log</div>
+<div class="para"># Control the maximum log file size</div>
+<div class="para">log4j.appender.R.MaxFileSize=100KB</div>
+<div class="para"># Archive log files (one backup file here)</div>
+<div class="para">log4j.appender.R.MaxBackupIndex=1</div>
+<div class="para">log4j.appender.R.layout=org.apache.log4j.PatternLayout</div>
+<div class="para">log4j.appender.R.layout.ConversionPattern=%d{yyyy-MM-dd hh:mm:ss}:%p %t %c - %m%n</div>
+<div class="para">先看一下运行结果。</div>
+<div class="para">在控制台中的结果为：</div>
+<div class="para">DEBUG [main] (?:?) - Start of the main() in TestLog4j</div>
+<div class="para">INFO [main] (?:?) - Just testing a log message with priority set to INFO</div>
+<div class="para">WARN [main] (?:?) - Just testing a log message with priority set to WARN</div>
+<div class="para">ERROR [main] (?:?) - Just testing a log message with priority set to ERROR</div>
+<div class="para">FATAL [main] (?:?) - Just testing a log message with priority set to FATAL</div>
+<div class="para">WARN [main] (?:?) - Testing a log message use a alternate form</div>
+<div class="para">DEBUG [main] (?:?) - TestLog4j.TestLog4j</div>
+<div class="para">WARN [main] (?:?) - 2Just testing a log message with priority set to WARN</div>
+<div class="para">ERROR [main] (?:?) - 2Just testing a log message with priority set to ERROR</div>
+<div class="para">FATAL [main] (?:?) - 2Just testing a log message with priority set to FATAL</div>
+<div class="para">输出文件的结果为：</div>
+<div class="para">2003-12-19 04:19:44:DEBUG main TestLog4j.TestLog4j - Start of the main() in TestLog4j</div>
+<div class="para">2003-12-19 04:19:44:INFO main TestLog4j.TestLog4j - Just testing a log message with priority set to INFO</div>
+<div class="para">2003-12-19 04:19:44:WARN main TestLog4j.TestLog4j - Just testing a log message with priority set to WARN</div>
+<div class="para">2003-12-19 04:19:44:ERROR main TestLog4j.TestLog4j - Just testing a log message with priority set to ERROR</div>
+<div class="para">2003-12-19 04:19:44:FATAL main TestLog4j.TestLog4j - Just testing a log message with priority set to FATAL</div>
+<div class="para">2003-12-19 04:19:44:WARN main TestLog4j.TestLog4j - Testing a log message use a alternate form</div>
+<div class="para">2003-12-19 04:19:44:DEBUG main TestLog4j.TestLog4j - TestLog4j.TestLog4j</div>
+<div class="para">2003-12-19 04:19:44:WARN main TestLog4j.TestLog4j2.TestLog4j2 - 2Just testing a log message with priority set to WARN</div>
+<div class="para">2003-12-19 04:19:44:ERROR main TestLog4j.TestLog4j2.TestLog4j2 - 2Just testing a log message with priority set to ERROR</div>
+<div class="para">2003-12-19 04:19:44:FATAL main TestLog4j.TestLog4j2.TestLog4j2 - 2Just testing a log message with priority set to FATAL</div>
+<div class="para">首先，先来看一下配置文件都有些什么东西。</div>
+<div class="para">1) 在1区中定义了一个根记录器。这个根记录器具有DEBUG级别并有一个名称为stdout的输出端appender。</div>
+<div class="para">2) 2区中的内容是这一节的重点，也是应用到记录器层次的地方，但其实也只有两句，充分体现了log4j的简单性。在这里，我们定义了两个名称分别为TestLog4j和TestLog4j.TestLog4j2设计器。</div>
+<div class="para">? 在定义TestLog4j记录器时没有指定级别，所以它的级别继承自它的父记录器，即根记录器，所以它的级别也为DEBUG。在定义TestLog4j记录器时又定义了一个名称为R的输出端，所以它的输出端有两个，一个从根记录器继承而来的名为stdout的输出端，另一个为在此定义的名为R的输出端。在此需要注意的是，在定义记录器时必须先定义记录器的级别，然后才是记录器的输出端。如果只想定义输出端而不定义级别，则虽然级别可以为空，但逗号分隔符不能省略。如定义TestLog4j记录器的做法。</div>
+<div class="para">? 在定义TestLog4j.TestLog4j2记录器时又指定了它的级别，由于一个记录器的级别只能有一个，所以新指定的级别将覆写掉它的父记录器的级别（这就象Java中的<a target=_blank href="/view/126521.htm">多态</a>）。我们没有定义TestLog4j.TestLog4j2记录器的输出端，所以它的输出端将从它的父记录器中继承而来。它的父记录器为estLog4j记录器，所以它和estLog4j记录器一样具有两个名称分别为 stdout和R的输出端。</div>
+<div class="para">3) 剩下的3区和4区分别设置了两个输出端的参数值。</div>
+<div class="para">接下来，回到我们的代码，看一下是如何取得记录器，在取记录器时又发生了什么。</div>
+<div class="para">1) 例4-a中的代码（2）中，语句Logger.getLogger()中的参数TestLog4j.class.getName()的值为 TestLog4j. TestLog4j，所以此语句的结果是取得一个名为TestLog4j. TestLog4j的记录器的对象。但在配置文件中并没有定义这样的记录器，所以最终将返回与所需的名称TestLog4j. TestLog4j最接近的记录器对象，即名为TestLog4j的记录器的对象。</div>
+<div class="para">2) 例4-b中的代码（1）的原理与例4-a中的代码（2）相似，期望取得的是名为TestLog4j.TestLog4j2. TestLog4j2的记录器对象，但最终返回的是TestLog4j.TestLog4j2记录器的对象。</div><div class="anchor-list">
+<a name="5" class="lemma-anchor para-title" ></a>
+<a name="sub25347_5" class="lemma-anchor " ></a>
+<a name="结合" class="lemma-anchor " ></a>
+</div><h2 class="para-title level-2">
+<span class="title-text">结合</span>
+<a class="edit-icon j-edit-link" data-edit-dl="5" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_edit-lemma"></em>编辑</a>
+</h2><div class="para">到目前为止，这篇文章讲的都是如何在application中应用log4j，而Java现在的应用主流是J2EE和J2ME。现在，我们来看一下要如何在 J2EE开发中应用log4j。其实在Web application中应用log4j也很简单，与在application中应用log4j不同之处就是要在所有应用log4j的代码之前对log4j进行初始化。所以，我们在web application中就要把log4j的初始化工作独立出来，把它放在Servlet中。下面，我们看一个例子。</div>
+<div class="para">例5-a：</div>
+<div class="para">进行初始化的Servlet：</div>
+<div class="para">import org.apache.log4j.PropertyConfigurator;</div>
+<div class="para">import javax.servlet.http.HttpServlet;</div>
+<div class="para">import javax.servlet.http.HttpServletRequest;</div>
+<div class="para">import javax.servlet.http.HttpServletResponse;</div>
+<div class="para">/**</div>
+<div class="para">* log4j.jar的初始化类，参考<a target=_blank href="/view/2545054.htm">web.xml</a></div>
+<div class="para">*/</div>
+<div class="para">public class Log4jInit extends HttpServlet</div>
+<div class="para">{</div>
+<div class="para">public void init()</div>
+<div class="para">{</div>
+<div class="para">//通过web.xml来动态取得配置文件</div>
+<div class="para">String prefix = getServletContext().getRealPath(&quot;/&quot;);</div>
+<div class="para">String file = getInitParameter(&quot;log4j-init-file&quot;);</div>
+<div class="para">// 如果没有给出相应的配置文件，则不进行初始化</div>
+<div class="para">if(file != null)</div>
+<div class="para">{</div>
+<div class="para">PropertyConfigurator.configure(prefix+file);　//（1）</div>
+<div class="para">}</div>
+<div class="para">}</div>
+<div class="para">public void doGet(HttpServletRequest req, HttpServletResponse res)</div>
+<div class="para">{}</div>
+<div class="para">}</div>
+<div class="para">下面来看一下这个Servlet在web.xml中的定义。</div>
+<div class="para">例5-b：</div>
+<div class="para">&lt;servlet&gt;</div>
+<div class="para">&lt;servlet-name&gt;log4j-init&lt;/servlet-name&gt;</div>
+<div class="para">&lt;servlet-class&gt;TestLog4j.Log4jInit&lt;/servlet-class&gt;</div>
+<div class="para">&lt;init-param&gt;</div>
+<div class="para">&lt;param-name&gt;log4j-init-file&lt;/param-name&gt;</div>
+<div class="para">&lt;param-value&gt;sort.properties&lt;/param-value&gt;</div>
+<div class="para">&lt;/init-param&gt;</div>
+<div class="para">&lt;load-on-startup&gt;1&lt;/load-on-startup&gt;</div>
+<div class="para">&lt;/servlet&gt;</div>
+<div class="para">因为log4j的初始化要在所有的log4j调用之前完成，所以在web.xml文件中，我们一定要把对应的Servlet定义的load-on-startup应设为1，以便在Web容器启动时即装入该Servlet。</div>
+<div class="para">完成了这两个步骤这后，我们就可以象在application开发中一样在web application任何地方应用log4j了。下面是在javabean中的应用的一个例子。</div>
+<div class="para">例5-c：</div>
+<div class="para">import org.apache.log4j.Logger;</div>
+<div class="para">public class InfoForm</div>
+<div class="para">{</div>
+<div class="para">static Logger logger = Logger.getLogger(InfoForm.class);</div>
+<div class="para">protected String title;</div>
+<div class="para">protected String content;</div>
+<div class="para">public InfoForm() {}</div>
+<div class="para">public void setTitle(Object value)</div>
+<div class="para">{</div>
+<div class="para">logger.debug(&quot;nepalon:title = &quot; + title);</div>
+<div class="para">title = value;</div>
+<div class="para">}</div>
+<div class="para">public String getTitle()</div>
+<div class="para">{</div>
+<div class="para">logger.debug(&quot;nepalon:title = &quot; + title);</div>
+<div class="para">return title;</div>
+<div class="para">}</div>
+<div class="para">public void setContent(String value)</div>
+<div class="para">{</div>
+<div class="para">content = value;</div>
+<div class="para">logger.debug(&quot;nepalon: content() = &quot; + content);</div>
+<div class="para">}</div>
+<div class="para">public String getContent()</div>
+<div class="para">{</div>
+<div class="para">logger.debug(&quot;nepalon: content = \n&quot; + content);</div>
+<div class="para">return content;</div>
+<div class="para">}</div>
+<div class="para">}</div>
+<div class="rs-container-foot">
+<a name="rs-1"></a>
+<a name="rs_25347_25493" class="anchor-2"></a>
+<div id="rs-container-25347-25493" class="rslazy rs-container" lazy-init="lemmars.tableAction(baidu.g('rs-25347-25493'))"></div>
+</div><script type="text/javascript">
+        window.rsInsertData = window['rsInsertData'] || [];
+        var rsdataList = {"foot":[{"fentryTableId":25493,"fentryTableName":"Apache\u8f6f\u4ef6\u57fa\u91d1\u4f1a","fentryTableType":1,"entryId":2499897,"templateId":0,"entryTitle":"Apache\u8f6f\u4ef6\u57fa\u91d1\u4f1a","isManual":0,"isExpand":1}],"top":[]};
+
+        if (rsdataList.top || rsdataList.foot) {
+            rsInsertData.push([25347, rsdataList]);
+        }
+    </script>
+<div id="open-tag">
+<div class="open-tag-title">词条标签：</div>
+<dd id="open-tag-item">
+<span class="taglist">
+软件
+</span>
+，<span class="taglist">
+计算机术语
+</span>
+，<span class="taglist">
+计算机学
+</span>
+，<span class="taglist">
+科技
+</span>
+</dd>
+<div class="open-tag-collapse" id="open-tag-collapse"></div>
+</div>
+<div class="clear"></div>
+</div>
+<div class="side-content">
+<div class="summary-pic">
+<a href="/picture/25347/25347/0/0e2442a7d933c8959a943050d31373f082020036.html?fr=lemma&amp;ct=single" target="_blank">
+<img src="http://d.hiphotos.baidu.com/baike/w%3D268/sign=f176500a708b4710ce2ffacafbcfc3b2/0e2442a7d933c8959a943050d31373f082020036.jpg" />
+<button class="picAlbumBtn"><em></em><span>图集</span></button>
+<div>log4j图册</div>
+</a>
+</div>
+<a name="zhixinWrap" class="qnAnchor"></a>
+<div class="side-box zhixin-box" id="zhixinWrap" data-source="bdg" data-newLemmaId="480673">
+<div class="zhixin-group js-group">
+<h6 class="js-cardTitle">
+<span>其他人还看</span>
+</h6>
+<div class="zhixin-fixBtn js-fixBtn">
+<div class="openFix" title="若推荐内容有误，请点击纠错进行反馈">纠错</div>
+<div class="closeFix">关闭纠错</div>
+</div>
+<div class="zhixin-list zhixin-list-3">
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/336103","targetId":"6094909"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/336103" target="_blank">
+<img width="72" height="72" src="http://e.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=269a5e2f0ed79123e0b5c734cb0968b0/f3d3572c11dfa9ec6609583060d0f703918fc1f6.jpg" alt="Maven" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/336103" target="_blank" title="Maven">Maven</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="6094909">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/4372646","targetId":"2824918"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/4372646" target="_blank">
+<img width="72" height="72" src="http://f.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=24f004675982b2b7a7ca6a845790fadd/622762d0f703918f2558a1a9513d269758eec4cc.jpg" alt="MyBatis" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/4372646" target="_blank" title="MyBatis">MyBatis</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="2824918">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/908354","targetId":"3526507"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/908354" target="_blank">
+<img width="72" height="72" src="http://b.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=caef18e62cdda3cc0bb1eb6067d40833/3c6d55fbb2fb4316ecfbfb0322a4462308f7d3e7.jpg" alt="Hadoop" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/908354" target="_blank" title="Hadoop">Hadoop</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="3526507">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/subview/23023/11192342","targetId":"85061"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/subview/23023/11192342" target="_blank">
+<img width="72" height="72" src="http://f.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=2f2d458e8ad4b31cf069c7fbe1eb164d/d788d43f8794a4c218deb9e60ff41bd5ac6e3979.jpg" alt="spring" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/subview/23023/11192342" target="_blank" title="spring">spring</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="85061">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/66926","targetId":"1211849"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/66926" target="_blank">
+<img width="72" height="72" src="http://h.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=5e18f67cb80e7bec238f50a14913880a/472309f7905298221517dbb0d7ca7bcb0a46d499.jpg" alt="junit" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/66926" target="_blank" title="junit">junit</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="1211849">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/subview/28283/5418753","targetId":"8512995"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/subview/28283/5418753" target="_blank">
+<img width="72" height="72" src="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/zhixin/img/cityzhixinemptyimg_1a62423.png" alt="apache" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/subview/28283/5418753" target="_blank" title="apache">apache</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="8512995">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/1460716","targetId":"828750"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/1460716" target="_blank">
+<img width="72" height="72" src="http://c.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C50/sign=b2a56902269759ee4a05338bd4c67224/83025aafa40f4bfb41b2935b034f78f0f736185a.jpg" alt="dom4j" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/1460716" target="_blank" title="dom4j">dom4j</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="828750">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/628102","targetId":"10787592"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/628102" target="_blank">
+<img width="72" height="72" src="http://a.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C0/sign=a0737d6dd42a283443f3654b3d88f8d8/86d6277f9e2f0708e8124770e924b899a901f2af.jpg" alt="ibatis" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/628102" target="_blank" title="ibatis">ibatis</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="10787592">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="zhixin-item" nslog="area" nslog-type="10000101" nslog-params='{"source":"bdg","url":"http://baike.baidu.com/view/1020297","targetId":"5385065"}'>
+<div class="portraitbox">
+<a href="http://baike.baidu.com/view/1020297" target="_blank">
+<img width="72" height="72" src="http://d.hiphotos.baidu.com/baike/whfpf%3D120%2C120%2C0/sign=44fc2040cb3d70cf4caff94d9ee1e032/37d12f2eb9389b507400922b8735e5dde6116ecf.jpg" alt="jquery" />
+</a>
+</div>
+<p class="item-title js-name"><a href="http://baike.baidu.com/view/1020297" target="_blank" title="jquery">jquery</a></p>
+<div class="zhixinErrorBox js-fixBox hidden" data-lemma-id="5385065">
+<a class="submit-trigger" href="javascript:;">有错误</a>
+<span class="js-text hidden">已反馈</span>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<form id="zhixinErrorForm" class="hidden" action="http://f3.baidu.com/index.php/feedback/zx/baikeJC" target="zhixinSubErr" method="post">
+<input class="js-url" name="fb_html_url" type="hidden" />
+<input class="js-query" name="fb_query" type="hidden" />
+<input class="js-title" name="fb_card_title" type="hidden" />
+<input class="js-content" name="fb_content" type="hidden" />
+<input class="js-souceId"name="fb_source_id" type="hidden" />
+</form>
+<iframe id="zhixinSubErr" name="zhixinSubErr" style="display:none;" frameborder="0"></iframe>
+<div class="baike-dynamic-wrapper side-box"></div>
+<dl class="side-box lemma-statistics">
+<dt class="title">词条统计</dt>
+<dd class="description">
+<ul>
+<li>浏览次数：<span id="j-lemmaStatistics-pv"></span>次</li>
+<li>编辑次数：40次<a href="/historylist/log4j/480673" class="nslog:1021" target="_blank">历史版本</a></li>
+<li>最近更新：<span class="j-modified-time" style="display:none">2015-06-11</span></li>
+<li>创建者：<a class="show-userCard" data-uid="3104165" title="查看此用户资料" target="_blank" href="http://www.baidu.com/p/java118" nslog-type="1022">java118</a></li>
+</ul>
+</dd>
+</dl>
+<div class="side-catalog" style="visibility:hidden">
+<div class="side-bar">
+<em class="circle start"></em>
+<em class="circle end"></em>
+</div>
+<div class="catalog-scroller">
+<dl class="catalog-list">
+<dt  class="catalog-title level1">
+<em class="pointer"></em>
+<span class="text">
+<span class="title-index">1</span>
+<a href="#1" class="title-link" nslog-type="1026">定义</a>
+</span>
+</dt>
+<dt  class="catalog-title level1">
+<em class="pointer"></em>
+<span class="text">
+<span class="title-index">2</span>
+<a href="#2" class="title-link" nslog-type="1026">配置</a>
+</span>
+</dt>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">2.1</span>
+<a href="#2_1" class="title-link" nslog-type="1026">第一步</a>
+</span>
+</dd>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">2.2</span>
+<a href="#2_2" class="title-link" nslog-type="1026">第二步</a>
+</span>
+</dd>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">2.3</span>
+<a href="#2_3" class="title-link" nslog-type="1026">第三步</a>
+</span>
+</dd>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">2.4</span>
+<a href="#2_4" class="title-link" nslog-type="1026">第四步</a>
+</span>
+</dd>
+<dt  class="catalog-title level1">
+<em class="pointer"></em>
+<span class="text">
+<span class="title-index">3</span>
+<a href="#3" class="title-link" nslog-type="1026">说明</a>
+</span>
+</dt>
+<dt  class="catalog-title level1">
+<em class="pointer"></em>
+<span class="text">
+<span class="title-index">4</span>
+<a href="#4" class="title-link" nslog-type="1026">详解</a>
+</span>
+</dt>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">4.1</span>
+<a href="#4_1" class="title-link" nslog-type="1026">定义配置文件</a>
+</span>
+</dd>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">4.2</span>
+<a href="#4_2" class="title-link" nslog-type="1026">格式化日志</a>
+</span>
+</dd>
+<dd class="catalog-title level2">
+<span class="text">
+<span class="title-index">4.3</span>
+<a href="#4_3" class="title-link" nslog-type="1026">运用在代码中</a>
+</span>
+</dd>
+<dt  class="catalog-title level1">
+<em class="pointer"></em>
+<span class="text">
+<span class="title-index">5</span>
+<a href="#5" class="title-link" nslog-type="1026">结合</a>
+</span>
+</dt>
+<a class="arrow" href="javascript:void(0);"></a>
+</dl>
+</div>
+<div class="right-wrap">
+<a class="go-up disable" href="javascript:void(0);"></a>
+<a class="go-down" href="javascript:void(0);"></a>
+</div>
+<div class="bottom-wrap">
+<a class="toggle-button" href="javascript:void(0);"></a>
+<a class="gotop-button" href="javascript:void(0);"></a>
+</div>
+</div>
+<div class="fengchao side-box" nslog="area" nslog-type="10000902">
+</div>
+<div class="unionAd side-box" nslog="area" nslog-type="10000902">
+</div>
+</div>
+</div>
+</div>
+<div class="after-content">
+<div class="bottom-promotion" id="bottom-promotion">
+<div id="BOTTOM_PRO_AD"></div>
+</div>
+</div>
+</div>
+
+<div class="wgt-footer-main">
+<div class="content">
+<dl class="fresh">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-fresh"></em>新手上路</dt>
+<dd>
+<div><a target="_blank" href="/usercenter/tasks#guide">成长任务</a></div>
+<div><a target="_blank" href="/help#main01">编辑入门</a></div>
+<div><a target="_blank" href="/help#main06">编辑规则</a></div>
+<div><a target="_blank" href="/help#main05">百科术语</a></div>
+</dd>
+</dl>
+<dl class="question">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-question"></em>我有疑问</dt>
+<dd>
+<div><a target="_blank" href="/user/question">常见问题</a></div>
+<div><a target="_blank" href="http://zhidao.baidu.com/new?ie=GBK">我要提问</a></div>
+<div><a target="_blank" href="http://tieba.baidu.com/f?ie=utf-8&fr=bks0000&kw=%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91">参加讨论</a></div>
+<div><a target="_blank" href="/feedback">意见反馈</a></div>
+</dd>
+</dl>
+<dl class="suggestion">
+<dt><em class="cmn-icon cmn-icons cmn-icons_footer-suggestion"></em>投诉建议</dt>
+<dd>
+<div><a target="_blank" href="http://tousu.baidu.com/baike#1">举报不良信息</a></div>
+<div><a target="_blank" href="http://tousu.baidu.com/baike#2">未通过词条申诉</a></div>
+<div><a target="_blank" href="http://tousu.baidu.com/baike#4">投诉侵权信息</a></div>
+<div><a target="_blank" href="http://tousu.baidu.com/baike#3">封禁查询与解封</a></div>
+</dd>
+</dl>
+</div>
+<div class="copyright">©2015Baidu&nbsp;<a href="http://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;|&nbsp;<a href="http://help.baidu.com/question?prod_en=baike&class=159&id=1047" target="_blank">百科协议</a>&nbsp;|&nbsp;<a href="/operation/cooperation" target="_blank">百度百科合作平台</a></div>
+</div>
+
+<div class="lemmaWgt-searchHeader">
+<div class="layout">
+<div class="logo-container">
+<a class="logo cmn-inline-block" title="到百科首页" href="/">
+<span class="cmn-baike-logo">
+<em class="cmn-icon cmn-icons cmn-icons_logo-bai"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-du"></em>
+<em class="cmn-icon cmn-icons cmn-icons_logo-baike"></em>
+</span>
+</a>
+</div>
+<div class="search">
+<div class="form">
+<form id="searchForm" action="/search/word" method="GET" target="_self">
+<input id="query" name="word" type="text" autocomplete="off" autocorrect="off" value="log4j" /><a id="search" href="javascript:;"><em class="cmn-icon wiki-lemma-icons wiki-lemma-icons_search"></em></a>
+</form>
+<ul id="suggestion" class="suggestion">
+<div></div>
+<li class="extra">
+<span id="close">关闭</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="tool-buttons">
+<a class="toolButtons-edit button j-edit-link" href="javascript:;" nslog-type="10010001"></a>
+<a class="toolButtons-collect button" href="javascript:;" nslog-type="10010002"></a>
+<a class="toolButtons-vote button" href="javascript:;" nslog-type="10010003"></a>
+</div>
+<div class="user-info">
+<a class="user-link unlogin" href="javascript:;" target="_blank">登录</a>
+</div>
+</div></div>
+<div class="bdsharebuttonbox side-share" data-tag="side-share">
+<span class="title">分享</span>
+<a class="bds_qzone" data-cmd="qzone" href="javascript:void(0);" nslog-type="9068"></a>
+<a class="bds_tsina" data-cmd="tsina" href="javascript:void(0);" nslog-type="9068"></a>
+<a class="bds_tqq" data-cmd="tqq" href="javascript:void(0);" nslog-type="9068"></a>
+<a class="bds_more" data-cmd="more" href="javascript:void(0);" nslog-type="9068"></a>
+</div>
+
+</body><script type="text/javascript" src="http://baike.bdimg.com/static/wiki-common/pkg/wiki-common_sync_js_0_8f81ba9.js"></script>
+<script type="text/javascript">require.resourceMap({"res":{"wiki-lemma:widget/lemma_content/mainContent/lemmaRelation/lemmaInsert.js":{"url":"http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaRelation/lemmaInsert_8f95785.js","pkg":"wiki-lemma:p3"},"wiki-lemma:widget/lemma_content/mainContent/lemmaRelation/tangram.js":{"url":"http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/mainContent/lemmaRelation/tangram_67429c3.js","pkg":"wiki-lemma:p3"},"wiki-lemma:widget/lemma_content/configModule/zhixin/zhixin.js":{"url":"http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/zhixin/zhixin_77497bc.js","deps":["wiki-common:widget/lib/jquery/jquery.js","wiki-common:widget/component/nslog/nslog.js"]}},"pkg":{"wiki-lemma:p3":{"url":"http://baike.bdimg.com/static/wiki-lemma/pkg/wiki-lemma-module-lemmaRelation_36b8718.js"}}});</script><script type="text/javascript" src="http://baike.bdimg.com/static/wiki-common/pkg/wiki-common_sync_js_1_16bd5e2.js"></script>
+<script type="text/javascript" src="http://baike.bdimg.com/static/wiki-common/pkg/wiki-common_sync_js_2_1dca152.js"></script>
+<script type="text/javascript" src="http://baike.bdimg.com/static/wiki-common/widget/component/unameFiller/unameFiller_0bbd803.js"></script>
+<script type="text/javascript" src="http://baike.bdimg.com/static/wiki-lemma/pkg/wiki-lemma_28cc6f8.js"></script>
+<script type="text/javascript" src="http://baike.bdimg.com/static/wiki-lemma/widget/lemma_content/configModule/zhixin/zhixin_77497bc.js"></script>
+<script type="text/javascript">!function(){  var $ = require('wiki-common:widget/lib/jquery/jquery.js'),
+    userbar = require('wiki-common:widget/component/userbar/userbar.js');
+    
+  $(function() {
+    userbar.buildUserbar($('.wgt-userbar'), null);
+  });
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery.js'),
+      initSearchbar = require('wiki-common:widget/component/searchbar/searchbar.js');  
+    initSearchbar($('.wgt-searchbar-main'));
+  }();
+!function(){  var $ = require('wiki-common:widget/lib/jquery/jquery.js');
+
+  var timer = '';
+
+  $('.wgt-navbar').on('mouseenter', 'dl', function() {
+    clearTimeout(timer);
+    timer = setTimeout(function() {
+      $('.wgt-navbar').addClass('wgt-navbar-hover');
+    }, 300);
+  }).on('mouseleave', function() {
+    clearTimeout(timer);
+    $('.wgt-navbar').removeClass('wgt-navbar-hover');
+  }).on('click', 'a', function() {
+    clearTimeout(timer);
+    $('.wgt-navbar').removeClass('wgt-navbar-hover');
+  });
+}();
+!function(){            require.async("wiki-lemma:widget/basicElement/addSub/addSub.js", function(SubAdder) {
+                new SubAdder({
+                    newLemmaId: "480673",
+                    lemmaId: "25347",
+                    subLemmaId: "25347",
+                    lemmaTitle: "log4j"
+                });
+            });
+        }();
+!function(){	require.async(["wiki-common:widget/lib/jquery/jquery.js", "wiki-lemma:widget/tools/userRight/userRight.js"],function($,UserRight){
+		UserRight.getRights({
+			newLemmaId:"480673",
+			isOrgLemma:"",
+			callback:function(data){
+				var enable=!!data.divide && data.divide.privilege ==1;
+				!!enable && $(".split-icon").show();
+			}
+		});
+	});
+}();
+!function(){	require.async("wiki-lemma:widget/basicElement/collect/collect.js",function(collect){
+		collect({
+            newLemmaId:"480673",
+			lemmaId:"25347",
+			subLemmaId:"25347"
+		});
+	});
+}();
+!function(){	require.async("wiki-lemma:widget/basicElement/vote/vote.js",function(vote){
+		vote({
+			lemmaId:"25347",
+            subLemmaId:"25347"
+		});
+	});
+}();
+!function(){	!!window.BKShare && window.BKShare.regist({
+		"tag" : "top-share",
+		"bdSize" : 32,
+		"bdMini":1
+	});
+}();
+!function(){	var editIcon = require('wiki-lemma:widget/basicElement/editIcon/editIcon.js');
+	editIcon({
+		newLemmaId: "480673",
+		lemmaId: "25347",
+		subLemmaId: "25347",
+		lemmaTitle: "log4j",
+		versionId: "79278819",
+		isOrgLemma: "",
+		editable: "1"
+	});
+}();
+!function(){	require.async("wiki-lemma:widget/lemma_content/mainContent/basicInfo/basicInfo.js",function(init){
+		init();
+	});
+}();
+!function(){        require.async(['wiki-lemma:widget/lemma_content/mainContent/lemmaRelation/lemmaInsert.js'], function(init) {
+            init();
+        });
+    }();
+!function(){        require.async("wiki-common:widget/lib/jquery/jquery.js",function($){
+            function openTagToggle(node) {
+                if ($(node).hasClass("collapse")) {
+                    $(node).removeClass("collapse");
+                    $("#open-tag").css("height", '22px');
+                } else {
+                    $(node).addClass("collapse");
+                    $("#open-tag").css("height", $("#open-tag-item").css("height"));
+                }
+            }
+            if (parseInt($("#open-tag-item").css("height")) <= 30) {
+                $('#open-tag-collapse').hide();
+            }
+            $("#open-tag-collapse").on("click", function () {
+                openTagToggle($("#open-tag")[0]);
+            });
+        });
+    }();
+!function(){            require.async("wiki-lemma:widget/lemma_content/configModule/zhixin/zhixin.js",function(init){
+                init();
+            });
+        }();
+!function(){    require.async("wiki-lemma:widget/promotion/baikeDynamic/baikeDynamic.js",function(Dynamic){
+        var dynamic=new Dynamic();
+        dynamic.appendTo(".baike-dynamic-wrapper");
+    });
+}();
+!function(){    require.async("wiki-lemma:widget/lemma_content/mainContent/lemmaStatistics/lemmaStatistics.js",function(init){
+        init({
+            newLemmaIdEnc:"8a797c6e7a757e2ee1e2b4f2"
+        });
+    });
+}();
+!function(){	require.async("wiki-lemma:widget/lemma_content/mainContent/sideCatalog/sideCatalog.js",function(SideCatalog){
+		new SideCatalog();
+	});
+}();
+!function(){    require.async(["wiki-lemma:widget/promotion/fengchao/fengchao.js", "wiki-lemma:widget/promotion/unionAd/unionAd.js"], function (init, unionAd) {
+        init({
+            newLemmaId: "480673",
+            lemmaTitle: "log4j",
+            encodeLemmaTitle: "log4j"
+        }, {
+            errFn: unionAd,
+            dom: $('.unionAd')
+        });
+    });
+}();
+!function(){        require.async('wiki-lemma:widget/promotion/bottomAd/bottomAd.js', function (init) {
+            init('BOTTOM_PRO_AD');
+        });
+    }();
+!function(){    require.async("wiki-lemma:widget/tools/editor/editor.js",function(Editor){
+        Editor.getInstance({
+            newLemmaId:'480673',
+            lemmaId:'25347',
+            subLemmaId:'25347',
+            lemmaTitle:'log4j',
+            versionId:'79278819'
+        }).listenEditLink();
+    });
+}();
+!function(){    require.async("wiki-lemma:widget/tools/searchHeader/toolButtons/toolButtons.js",function(init){
+        init({
+            newLemmaId:"480673",
+            lemmaId:"25347",
+            subLemmaId:"25347"
+        });
+    });
+}();
+!function(){    require('wiki-lemma:widget/tools/searchHeader/toolButtons/userInfo.js')();
+}();
+!function(){    var $ = require('wiki-common:widget/lib/jquery/jquery.js'),
+      animation = require('wiki-common:widget/util/animation.js'),
+      initSearchbar = require('wiki-common:widget/component/searchbar/searchbar.js');
+
+    var isFadeIn = false,
+        isFadeOut = false;
+
+    var fadeInAni, fadeOutAni;
+
+    $(window).on('scroll', function(e) {
+        var scrollTop = $(this).scrollTop();
+
+        if (scrollTop > 200 && !isFadeIn && $('.lemmaWgt-searchHeader').css('display') == 'none') {
+            fadeOutAni && fadeOutAni.stop();
+            fadeInAni = animation({
+                duration: 200,
+                easing: 'linear',
+                onStart: function() {
+                    isFadeOut = false;
+                    isFadeIn = true;
+                    $('.lemmaWgt-searchHeader').css('display', 'block');
+                },
+                onStep: function(progress) {
+                    $('.lemmaWgt-searchHeader').css('opacity', progress)
+                },
+                onComplete: function(progress) {
+                    isFadeIn = false;
+                }
+            });
+        } else if (scrollTop <= 200 && !isFadeOut && $('.lemmaWgt-searchHeader').css('display') == 'block') {
+            fadeInAni && fadeInAni.stop();
+            fadeOutAni = animation({
+                duration: 300,
+                easing: 'linear',
+                onStart: function() {
+                    $('.lemmaWgt-searchHeader #suggestion').hide();
+                    isFadeIn = false;
+                    isFadeOut = true;
+                },
+                onStep: function(progress) {
+                    $('.lemmaWgt-searchHeader').css('opacity', 1 - progress);
+                },
+                onComplete: function(progress) {
+                    isFadeOut = false;
+                    $('.lemmaWgt-searchHeader').css('display', 'none');
+                }
+            });
+        }
+    });
+
+    initSearchbar($('.lemmaWgt-searchHeader'));
+}();
+!function(){	!!window.BKShare && window.BKShare.regist({
+		"tag" : "side-share",
+		"bdSize" : 32,
+		"bdMini":1,
+		"bdPopupOffsetLeft":-72
+	});
+}();
+!function(){    require.async("wiki-lemma:widget/promotion/rightAd/rightAd.js",function(RightAd){
+        var rightAd=new RightAd();
+        rightAd.appendTo(document.body);
+    });
+}();
+!function(){require.async(['wiki-common:widget/lib/jquery/jquery.js', 'wiki-common:widget/component/nslog/nslog.js'], function($,nslog){
+    $.getJSON('/cms/lemmaconfig/navbarAd.json', {t:new Date().getTime()}, function(o){
+        if(o && o.data && o.data.length > 0){
+            var oDa = o.data[0];
+            if(oDa.isShow == "1"){
+                if(oDa.linkType === 'link' && oDa.linkSrc != ''){
+                    var str ='<a target="_blank" href="'+ oDa.linkHref +'" title="'+ oDa.linkText+
+                        '" style="background:url('+oDa.linkSrc+') 0px 0px no-repeat; width:200px; height:100px; outline:0; font-size:0; text-indent:-999em; display:block;position:absolute;right:0px; bottom:0px;" nslog-type="40000302"></a>';
+                    $(".header-wrapper .layout").append($(str));
+                    nslog(40000301);
+                }
+            }
+        }
+    });
+});
+}();
+!function(){    require.async("wiki-lemma:widget/tools/lazyLoad/lazyLoad.js", function(LazyLoad) {
+        new LazyLoad();
+    });
+
+    require.async(['wiki-common:widget/component/nslog/nslog.js', 'wiki-common:widget/lib/jquery/jquery.js'], function(nslog, $) {
+        nslog().setGlobal({
+            lemmaId: "25347",
+            newLemmaId: "480673",
+            subLemmaId: "25347",
+            lemmaTitle: "log4j"
+        });
+        nslog(9322);
+        $(document.body).on("click", "a", function() {
+            // nslog(12);
+        });
+    });
+
+    require.async(['wiki-common:widget/lib/jquery/jquery.js'], function($) {
+        var map = [1, 2, 4, 3];
+        $('.wgt-footer-main .suggestion').find('a').each(function(i) {
+            $(this).attr('href', 'http://tousu.baidu.com/baike/add?word=log4j' + '&&submit_link=' + encodeURIComponent(window.location.href) + '#' + map[i]);
+        });
+    });
+
+    window.BKShare.setCommon({
+        bdText: '【log4j_百度百科】Log4j是Apache的一个开放源代码项目，通过使用Log4j，我们可以控制日志信息输送的目的地是控制台、文件、GUI组件，甚至是套接口服务器、NT的事件记录器、UNIX Syslog守护进程等；我们也可以控制每一条日志的输出格式；通过定义每一条日志信息的级别，我们能够更加细致地控制日志的生成过程。最令人.....（分享自@百度百科）',
+        bdDesc: '',
+        bdUrl: '',
+        bdPic: ''
+    });
+}();
+!function(){      require('wiki-common:widget/component/psLink/psLink.js');
+    }();</script>
+<script type="text/javascript">
+  var Hunter = window.Hunter || {};
+  Hunter.userConfig = Hunter.userConfig || [];
+  </script>
+<script type="text/javascript" src="http://img.baidu.com/hunter/baike.js?st=16667" defer></script></html><!--05172977210289874954082013-->
+<script> var _trace_page_logid = 0517297721; </script>
